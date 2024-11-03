@@ -2,14 +2,17 @@ package com.example.PDTS;
 
 import jakarta.persistence.*;
 
+// Entity representing a courier
 @Entity
 public class Courier {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String vehicleType;
+    private String name;         // Courier name
+    private String vehicleType;   // Type of vehicle used by the courier
+
+    // Getters and setters
 
     public Long getId() {
         return id;

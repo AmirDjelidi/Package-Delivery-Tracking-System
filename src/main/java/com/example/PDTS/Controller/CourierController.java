@@ -10,18 +10,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/couriers")
+@CrossOrigin(origins = "http://localhost:3000")
 public class CourierController {
     @Autowired
     private CourierService courierService;
 
-    // Ajouter un nouveau transporteur
+    // Add a new courier
     @PostMapping
     public ResponseEntity<Courier> addCourier(@RequestBody Courier courier) {
         Courier savedCourier = courierService.saveCourier(courier);
         return ResponseEntity.ok(savedCourier);
     }
 
-    // Récupérer un transporteur par son ID
+    // Retrieve a courier by ID
     @GetMapping("/{id}")
     public ResponseEntity<Courier> getCourierById(@PathVariable Long id) {
         return courierService.getCourierById(id)
@@ -29,20 +30,20 @@ public class CourierController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // Lister tous les transporteurs
+    // List all couriers
     @GetMapping
     public ResponseEntity<List<Courier>> getAllCouriers() {
         List<Courier> couriers = courierService.getAllCouriers();
         return ResponseEntity.ok(couriers);
     }
 
-    // Supprimer un transporteur par son ID
+    // Delete a courier by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourierById(@PathVariable Long id) {
         if (courierService.deleteCourierById(id)) {
-            return ResponseEntity.noContent().build(); // 204 No Content, suppression réussie
+            return ResponseEntity.noContent().build(); // 204 No Content, deletion successful
         } else {
-            return ResponseEntity.notFound().build(); // 404 Not Found, si le transporteur n'existe pas
+            return ResponseEntity.notFound().build(); // 404 Not Found if courier doesn't exist
         }
     }
 }
